@@ -1,0 +1,42 @@
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.bz2
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.tgz
+*.InfText
+# Logs and databases #
+######################
+*.log
+*.sql
+
+# IDE files #
+.idea
+.vscode
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon
+
+Thumbs.db
+._*
+
+# Vim generated files #
+######################
+*.un~
+
+# SASS #
+##########
+.sass-cache
+/nbproject/private/
+
+/vendor
+/node_modules

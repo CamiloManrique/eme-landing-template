@@ -1,0 +1,18 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  only:
+    - master
+  environment:
+    name: production
+
+  image: valudio/docker-sshpass
+
+  script:
+    - if [ -z $SSH_PASSWORD ]; then echo "La variable SSH_PASSWORD no esta definida" && exit 1; fi
+    - if [ -z $SSH_USERNAME ]; then echo "La variable SSH_USERNAME no esta definida" && exit 1; fi
+    - if [ -z $SSH_DEPLOY_PATH ]; then echo "La variable SSH_DEPLOY_PATH no esta definida" && exit 1; fi
+
+    - sshpass -p "$SSH_PASSWORD" ssh -oStrictHostKeyChecking=no -T "$SSH_USERNAME@$REMOTE_HOST" "export SSH_DEPLOY_PATH=$SSH_DEPLOY_PATH && export CI_REPOSITORY_URL=$CI_REPOSITORY_URL && export CI_PROJECT_NAME=$CI_PROJECT_NAME && export DEPLOY_USERNAME=$DEPLOY_USERNAME && export DEPLOY_TOKEN=$DEPLOY_TOKEN && export CI_PROJECT_PATH=$CI_PROJECT_PATH && bash -se" < deploy.sh

@@ -1,0 +1,11 @@
+{
+    "name": "eme-marketing/landing-template",
+    "description": "Un template generico para hacer landings con CI/CD para GitLab incluido",
+    "authors": [
+        {
+            "name": "Camilo Manrique",
+            "email": "camilomanriquec@gmail.com"
+        }
+    ],
+    "require": {}
+}
