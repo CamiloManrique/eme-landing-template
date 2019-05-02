@@ -36,7 +36,7 @@ if [ ! -d ".git" ]; then
         echo "Eliminando carpeta con nombre del repositorio"
         rm -rf $CI_PROJECT_NAME
     fi
-    git clone http://$DEPLOY_USERNAME:$DEPLOY_TOKEN@gitlab.com/$CI_PROJECT_PATH.git
+    git clone "https://$DEPLOY_USERNAME:$DEPLOY_TOKEN@gitlab.com/$CI_PROJECT_PATH.git"
     echo "Clonado con exito"
     cd $CI_PROJECT_NAME
     echo "Comprimiendo y copiando a la ruta de deploy"
