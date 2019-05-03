@@ -38,5 +38,7 @@ Thumbs.db
 .sass-cache
 /nbproject/private/
 
+.env
+
 /vendor
 /node_modules

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 if [ -z "$SSH_DEPLOY_PATH" ]; then
     echo "La variable SSH_DEPLOY_PATH no esta definida"
     exit 1
