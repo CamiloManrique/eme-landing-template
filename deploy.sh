@@ -74,6 +74,11 @@ if [ -f "composer.json" ]; then
     fi
 fi
 
+if [ -f "phinx.php" ]; then
+    echo "Archivo phinx.php encontrado... Ejecutando migraciones"
+    vendor/bin/phinx migrate
+fi
+
 type npm >/dev/null 2>&1 || { echo >&2 "NPM no se encuentra instalado. No se instalara ningun paquete de NPM."; exit 0; }
 
 if [ -f "package.json" ]; then
