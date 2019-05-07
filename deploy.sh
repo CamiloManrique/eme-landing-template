@@ -29,6 +29,12 @@ if [ -z "$CI_PROJECT_PATH" ]; then
     exit 1
 fi
 
+
+if [ -z "$PHP_EXECUTABLE" ]; then
+    PHP_EXECUTABLE="php"
+fi
+
+
 cd $SSH_DEPLOY_PATH
 
 if [ ! -d ".git" ]; then
@@ -57,3 +63,31 @@ git checkout master
 echo "Realizando pull"
 git pull
 
+if [ -f "composer.json" ]; then
+    echo "Composer.json encontrado"
+    if [ -f "composer.lock" ]; then
+        echo "Composer.lock encontrado... Instalando dependencias..."
+        $PHP_EXECUTABLE composer.phar install
+    else
+        echo "No hay composer.lock... Actualizando dependencias..."
+        $PHP_EXECUTABLE composer.phar update
+    fi
+fi
+
+type npm >/dev/null 2>&1 || { echo >&2 "NPM no se encuentra instalado. No se instalara ningun paquete de NPM."; exit 0; }
+
+if [ -f "package.json" ]; then
+    echo "package.json encontrado"
+    if [ -f "package-lock.json" ]; then
+        echo "package-lock encontrado... Instalando dependencias..."
+        npm ci
+    else
+        echo "No hay package-lock.json... Actualizando dependencias..."
+        npm install
+    fi
+fi
+
+if [ -f "webpack.mix.js" ]; then
+    echo "Webpack Mix encontrado... Compilando assets para produccion"
+    npm run prod
+fi
