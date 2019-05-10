@@ -9,17 +9,19 @@ $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/../../.env');
 
 $app_debug = $_ENV['APP_DEBUG'] === 'true' ? true : false;
+$db_connection = isset($_ENV['DB_CONNECTION']) ? $_ENV['DB_CONNECTION'] : "pdo_mysql";
+$db_port = isset($_ENV['DB_PORT']) ? $_ENV['DB_PORT'] : 3306;
 
 $configuration = [
     'settings' => [
         'displayErrorDetails' => $app_debug,
         'db' => [
-            'driver' => $_ENV['DB_CONNECTION'],
+            'driver' => $db_connection,
             'host' => $_ENV['DB_HOST'],
             'database' => $_ENV['DB_DATABASE'],
             'username' => $_ENV['DB_USERNAME'],
             'password' => $_ENV['DB_PASSWORD'],
-            'port' => $_ENV['DB_PORT'],
+            'port' => $db_port,
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',

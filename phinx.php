@@ -6,14 +6,17 @@ use Symfony\Component\Dotenv\Dotenv;
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/.env');
 
+$db_connection = isset($_ENV['DB_CONNECTION']) ? $_ENV['DB_CONNECTION'] : "pdo_mysql";
+$db_port = isset($_ENV['DB_PORT']) ? $_ENV['DB_PORT'] : 3306;
+
 $capsule = new \Illuminate\Database\Capsule\Manager;
 $capsule->addConnection(array(
-    'driver' => $_ENV['DB_CONNECTION'],
+    'driver' => $db_connection,
     'host' => $_ENV['DB_HOST'],
     'database' => $_ENV['DB_DATABASE'],
     'username' => $_ENV['DB_USERNAME'],
     'password' => $_ENV['DB_PASSWORD'],
-    'port' => $_ENV['DB_PORT'],
+    'port' => $db_port,
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',
