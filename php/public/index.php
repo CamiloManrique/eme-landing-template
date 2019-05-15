@@ -2,6 +2,8 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Symfony\Component\Dotenv\Dotenv;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\DatabasePresenceVerifier;
 
 require '../../vendor/autoload.php';
 
@@ -41,6 +43,32 @@ $container['db'] = function ($container) {
     return $capsule;
 };
 
+$container['translation'] = function ($container){
+    $filesystem = new Illuminate\Filesystem\Filesystem();
+    $loader = new Illuminate\Translation\FileLoader($filesystem, dirname(dirname(__FILE__)) . '/lang');
+    $loader->addNamespace('lang', dirname(dirname(__FILE__)) . '/lang');
+    $loader->load($lang = 'es', $group = 'validation', $namespace = 'lang');
+    $loader->load($lang = 'en', $group = 'validation', $namespace = 'lang');
+
+    $factory = new Illuminate\Translation\Translator($loader, 'es');
+    return $factory;
+};
+
+$container['validationFactory'] = function ($container){
+
+    $translation = $container->get('translation');
+
+    $capsule = $container->get('db');
+    $connection_resolver = $capsule->getDatabaseManager();
+
+    $database_verifier = new DatabasePresenceVerifier($connection_resolver);
+
+    $validator = new Illuminate\Validation\Factory($translation);
+    $validator->setPresenceVerifier($database_verifier);
+
+    return $validator;
+};
+
 $app = new \Slim\App($container);
 
 $app->any('/variables/example', function (Request $request, Response $response){
@@ -52,6 +80,21 @@ $app->any('/variables/example', function (Request $request, Response $response){
 
 $app->any('/redirect/example', function (Request $request, Response $response){
     return $response->withRedirect(route('new-url'), 303);
+});
+
+$app->any('/validation/example', function (Request $request, Response $response){
+    $validationFactory = $this->get('validationFactory');
+    $validator = $validationFactory->make($request->getParams(), [
+        "username" => 'required',
+        "email" => ['required', 'email', Rule::unique('users', 'email')]
+    ]);
+
+    if($validator->fails()){
+        return return_validation_errors($response, $validator);
+    }
+
+    return $response->withJson(['success' => true]);
+
 });
 
 $app->run();

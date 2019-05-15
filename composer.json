@@ -11,12 +11,15 @@
     "require": {
         "php": ">=5.6",
         "illuminate/database": "~5.1",
+        "illuminate/validation": "~5.1",
+        "illuminate/translation": "~5.1",
+        "illuminate/filesystem": "~5.1",
         "robmorgan/phinx": "^0.10.7",
         "slim/slim": "^3.12",
         "symfony/dotenv": "3.4.27"
     },
     "autoload":{
-        "files": ["php/helpers/url.php"]
+        "files": ["php/helpers/url.php", "php/helpers/validation.php"]
     },
     "config": {
         "preferred-install": "dist",
