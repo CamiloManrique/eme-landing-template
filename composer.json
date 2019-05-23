@@ -16,9 +16,13 @@
         "illuminate/filesystem": "~5.1",
         "robmorgan/phinx": "^0.10.7",
         "slim/slim": "^3.12",
-        "symfony/dotenv": "3.4.27"
+        "symfony/dotenv": "3.4.27",
+        "swiftmailer/swiftmailer": "^5.4"
     },
     "autoload":{
+        "psr-4": {
+            "Classes\\": "php/classes"
+        },
         "files": ["php/helpers/url.php", "php/helpers/validation.php"]
     },
     "config": {
