@@ -5,11 +5,10 @@ use Symfony\Component\Dotenv\Dotenv;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\DatabasePresenceVerifier;
 
-require '../../vendor/autoload.php';
-
 $dotenv = new Dotenv();
-$dotenv->load(__DIR__.'/../../.env');
+$dotenv->load(ROOT_DIR . '/.env');
 
+$app_env = isset($_ENV['APP_ENV']) ? $_ENV['APP_ENV'] : 'local';
 $app_debug = $_ENV['APP_DEBUG'] === 'true' ? true : false;
 $db_connection = isset($_ENV['DB_CONNECTION']) ? $_ENV['DB_CONNECTION'] : "pdo_mysql";
 $db_port = isset($_ENV['DB_PORT']) ? $_ENV['DB_PORT'] : 3306;
@@ -32,6 +31,21 @@ $configuration = [
 ];
 
 $container = new \Slim\Container($configuration);
+
+$container['view'] = function ($container) use ($app_env) {
+    $cache = $app_env === 'production' ? ROOT_DIR.'/cache' : false;
+    $view = new \Slim\Views\Twig(ROOT_DIR.'/views', [
+        'cache' => $cache
+    ]);
+
+    // Instantiate and add Slim specific extension
+    $router = $container->get('router');
+    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
+    $view->addExtension(new \Classes\Twig\AssetExtension);
+
+    return $view;
+};
 
 $container['db'] = function ($container) {
     $capsule = new \Illuminate\Database\Capsule\Manager;
@@ -70,6 +84,14 @@ $container['validationFactory'] = function ($container){
 };
 
 $app = new \Slim\App($container);
+
+$app->get('/hello/{name}', function (Request $request, Response $response, $args){
+    $items = ["Item 1", "Item 2", "Item 3"];
+    return $this->view->render($response, 'example.twig', [
+        'name' => $args['name'],
+        'items' => $items
+    ]);
+});
 
 $app->any('/variables/example', function (Request $request, Response $response){
     $data = ["data" => $request->getParams()];

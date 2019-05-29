@@ -43,6 +43,7 @@ Thumbs.db
 /vendor
 /node_modules
 
+cache
 public/js/app.js
 public/css/app.css
 mix-manifest.json
