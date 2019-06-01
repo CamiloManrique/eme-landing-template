@@ -10,9 +10,30 @@ let mix = require('laravel-mix');
  | file for your application, as well as bundling up your JS files.
  |
  */
+mix.setPublicPath("public")
+mix.webpackConfig({
+    plugins: [
+        new CopyWebpackPlugin([{
+            from: 'resources/img', // FROM
+            to: 'img/', // TO
+        }]),
+        new ImageminPlugin({
+            disable: process.env.NODE_ENV !== 'production',
+            test: /\.(jpe?g|png|gif|svg)$/i,
+            pngquant:{
+                quality: 80
+            },
+            plugins: [
+                imageminMozjpeg({
+                    quality: 80,
+                })
+            ]
+        })
+    ]
+})
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/scss/app.scss', 'public/css')
+mix.js('resources/js/app.js', 'js')
+    .sass('resources/scss/app.scss', 'css')
 
 // Full API
 // mix.js(src, output);

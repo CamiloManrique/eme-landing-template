@@ -8,20 +8,26 @@ use Illuminate\Validation\DatabasePresenceVerifier;
 $dotenv = new Dotenv();
 $dotenv->load(ROOT_DIR . '/.env');
 
-$app_env = isset($_ENV['APP_ENV']) ? $_ENV['APP_ENV'] : 'local';
+$app_env = env('APP_ENV', 'local');
 $app_debug = $_ENV['APP_DEBUG'] === 'true' ? true : false;
-$db_connection = isset($_ENV['DB_CONNECTION']) ? $_ENV['DB_CONNECTION'] : "pdo_mysql";
-$db_port = isset($_ENV['DB_PORT']) ? $_ENV['DB_PORT'] : 3306;
+
+
+$db_connection = env('DB_CONNECTION', 'pdo_mysql');
+$db_host = env('DB_HOST', '');
+$db_username = env('DB_USERNAME', '');
+$db_pass = env('DB_PASSWORD', '');
+$db_database = env('DB_DATABASE', '');
+$db_port = env('DB_PORT', 3306);
 
 $configuration = [
     'settings' => [
         'displayErrorDetails' => $app_debug,
         'db' => [
             'driver' => $db_connection,
-            'host' => $_ENV['DB_HOST'],
-            'database' => $_ENV['DB_DATABASE'],
-            'username' => $_ENV['DB_USERNAME'],
-            'password' => $_ENV['DB_PASSWORD'],
+            'host' => $db_host,
+            'database' => $db_database,
+            'username' => $db_username,
+            'password' => $db_pass,
             'port' => $db_port,
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
