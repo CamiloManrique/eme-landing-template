@@ -14,6 +14,7 @@
         "illuminate/filesystem": "~5.1",
         "illuminate/translation": "~5.1",
         "illuminate/validation": "~5.1",
+        "nerds-and-company/css-to-inline-styles-twig-extension": "^1.1",
         "robmorgan/phinx": "^0.10.7",
         "slim/slim": "^3.12",
         "slim/twig-view": "^2.5",

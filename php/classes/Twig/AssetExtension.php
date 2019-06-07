@@ -22,7 +22,8 @@ class AssetExtension extends TwigExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('asset', array($this, 'asset'))
+            new TwigFunction('asset', array($this, 'asset')),
+            new TwigFunction('absolute_path', array($this, 'absolute_path'))
         ];
     }
 
@@ -30,6 +31,10 @@ class AssetExtension extends TwigExtension
     {
         $app_url = isset($_ENV['APP_URL']) ? $_ENV['APP_URL'] : "http://localhost";
         return $app_url."/public/".ltrim($path, "/");
+    }
+
+    public function absolute_path($path){
+        return ROOT_DIR."/".ltrim($path, "/");
     }
 
 }

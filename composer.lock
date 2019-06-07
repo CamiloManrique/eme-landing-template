@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c9e93fd438b650883caa60dc2d584b6",
+    "content-hash": "2d35ea72eb36866aa403ec138e0cceb7",
     "packages": [
         {
             "name": "cakephp/cache",
@@ -912,6 +912,55 @@
             "time": "2019-05-17T13:21:18+00:00"
         },
         {
+            "name": "nerds-and-company/css-to-inline-styles-twig-extension",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nerds-and-company/css-to-inline-styles-twig-extension.git",
+                "reference": "758489ade4c1a4860d8c47e2b9b3bda7b4be781b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nerds-and-company/css-to-inline-styles-twig-extension/zipball/758489ade4c1a4860d8c47e2b9b3bda7b4be781b",
+                "reference": "758489ade4c1a4860d8c47e2b9b3bda7b4be781b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "tijsverkoyen/css-to-inline-styles": "^2.0",
+                "twig/twig": ">=1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8|~5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NerdsAndCompany\\CssToInlineStyles\\Twig\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bart van Gennep",
+                    "email": "b.vangennep@nerds.company",
+                    "homepage": "http://www.nerds.company",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Twig extension to insert css as inline styles with a tag",
+            "homepage": "https://github.com/nerds-and-company/css-to-inline-styles-twig-extension",
+            "keywords": [
+                "css",
+                "inline",
+                "twig"
+            ],
+            "time": "2018-10-03T08:34:53+00:00"
+        },
+        {
             "name": "nesbot/carbon",
             "version": "2.18.0",
             "source": {
@@ -1718,6 +1767,59 @@
             "time": "2019-04-27T14:29:50+00:00"
         },
         {
+            "name": "symfony/css-selector",
+            "version": "v4.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "105c98bb0c5d8635bea056135304bd8edcc42b4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/105c98bb0c5d8635bea056135304bd8edcc42b4d",
+                "reference": "105c98bb0c5d8635bea056135304bd8edcc42b4d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony CssSelector Component",
+            "homepage": "https://symfony.com",
+            "time": "2019-01-16T21:53:39+00:00"
+        },
+        {
             "name": "symfony/dotenv",
             "version": "v3.4.27",
             "source": {
@@ -2177,6 +2279,53 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2019-03-30T15:58:42+00:00"
+        },
+        {
+            "name": "tijsverkoyen/css-to-inline-styles",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
+                "reference": "0ed4a2ea4e0902dac0489e6436ebcd5bbcae9757"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/0ed4a2ea4e0902dac0489e6436ebcd5bbcae9757",
+                "reference": "0ed4a2ea4e0902dac0489e6436ebcd5bbcae9757",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "symfony/css-selector": "^2.7 || ^3.0 || ^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TijsVerkoyen\\CssToInlineStyles\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Tijs Verkoyen",
+                    "email": "css_to_inline_styles@verkoyen.eu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
+            "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
+            "time": "2017-11-27T11:13:29+00:00"
         },
         {
             "name": "twig/twig",

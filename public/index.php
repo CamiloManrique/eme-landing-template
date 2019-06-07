@@ -4,6 +4,7 @@ use Slim\Http\Response;
 use Symfony\Component\Dotenv\Dotenv;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\DatabasePresenceVerifier;
+use Classes\Mail\Mail;
 
 $dotenv = new Dotenv();
 $dotenv->load(ROOT_DIR . '/.env');
@@ -49,6 +50,7 @@ $container['view'] = function ($container) use ($app_env) {
     $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
     $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
     $view->addExtension(new \Classes\Twig\AssetExtension);
+    $view->addExtension(new \NerdsAndCompany\CssToInlineStyles\Twig\InlineCssExtension);
 
     return $view;
 };
@@ -123,6 +125,12 @@ $app->any('/validation/example', function (Request $request, Response $response)
 
     return $response->withJson(['success' => true]);
 
+});
+
+$app->any('/mail/example', function (Request $request, Response $response){
+    (new Mail)->setRecipient("example@example.com")
+        ->setBody($this->view->fetch('mails/example.twig', ['name' => 'Test User']))
+        ->send();
 });
 
 $app->run();
