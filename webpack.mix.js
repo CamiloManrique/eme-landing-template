@@ -35,6 +35,7 @@ mix.webpackConfig({
             ]
         }),
         new PurgecssPlugin({
+            disable: process.env.NODE_ENV !== 'production',
             paths: glob.sync([
                 path.join(__dirname, "resources/js/*.{js, vue}"),
                 path.join(__dirname, "views/*.{twig, php, html}")
