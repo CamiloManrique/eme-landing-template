@@ -2,6 +2,8 @@ let mix = require('laravel-mix');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const CopyWebpackPlugin  = require('copy-webpack-plugin');
 const imageminMozjpeg = require('imagemin-mozjpeg');
+const glob = require("glob-all");
+const PurgecssPlugin = require("purgecss-webpack-plugin");
 
 /*
  |--------------------------------------------------------------------------
@@ -31,6 +33,13 @@ mix.webpackConfig({
                     quality: 80,
                 })
             ]
+        }),
+        new PurgecssPlugin({
+            paths: glob.sync([
+                path.join(__dirname, "resources/js/*.{js, vue}"),
+                path.join(__dirname, "views/*.{twig, php, html}")
+            ]),
+            whitelistPatterns: [/^llyv/]
         })
     ]
 })
