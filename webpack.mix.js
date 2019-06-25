@@ -16,7 +16,8 @@ const PurgecssPlugin = require("purgecss-webpack-plugin");
  |
  */
 mix.setPublicPath("public")
-mix.webpackConfig({
+
+let webpackConfig = {
     plugins: [
         new CopyWebpackPlugin([{
             from: 'resources/img', // FROM
@@ -33,17 +34,24 @@ mix.webpackConfig({
                     quality: 80,
                 })
             ]
-        }),
+        })
+    ]
+}
+
+if(mix.inProduction()){
+    webpackConfig.plugins.push(
         new PurgecssPlugin({
-            disable: process.env.NODE_ENV !== 'production',
             paths: glob.sync([
                 path.join(__dirname, "resources/js/*.{js, vue}"),
                 path.join(__dirname, "views/*.{twig, php, html}")
             ]),
-            whitelistPatterns: [/^llyv/]
+            whitelistPatterns: [/^llyv/],
+            whitelistPatternsChildren: [/^llyv/]
         })
-    ]
-})
+    )
+}
+
+mix.webpackConfig(webpackConfig)
 
 mix.js('resources/js/app.js', 'js')
     .sass('resources/scss/app.scss', 'css')
